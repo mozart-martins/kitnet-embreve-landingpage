@@ -33,7 +33,7 @@
         <p class="soon soon-size">
           Em breve
         </p>
-        <form class="mx-auto email-input-form"
+        <form id="input-form" class="mx-auto email-input-form"
           action="https://assets.mailerlite.com/jsonp/287455/forms/77049715129059153/subscribe">
           <div class="mb-1">
             <input type="email" aria-label="email" aria-required="true" class="send-input" id="inputEmail"
@@ -52,6 +52,25 @@
       adsf
     </section> -->
   </div>
+  <script>
+    document.forms["input-form"].addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      fetch(event.target.action, {
+        method: 'POST',
+        body: new URLSearchParams(new FormData(event.target))
+      }).then((response) => {
+        return response.json();
+      }).then((response) => {
+        if (response.success) {
+          alert("E-mail cadastrado com sucesso.");
+        }
+        else {
+          alert("Faz-se necessário o fornecimento de um e-mail válido.")
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
